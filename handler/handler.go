@@ -28,7 +28,7 @@ func (h *UserHandler) UsersHandler(w http.ResponseWriter, r *http.Request) {
 
     var responseBatch []model.UserProfile
 
-    // Generate 2-5 new users
+    // This code part is to generate 2-5 new users
     newCount := rand.Intn(4) + 2
     for i := 0; i < newCount; i++ {
         user := h.generateRandomUser()
@@ -38,7 +38,7 @@ func (h *UserHandler) UsersHandler(w http.ResponseWriter, r *http.Request) {
         h.Logger.Info("Generated new user", zap.String("id", user.ID), zap.String("email", user.Email))
     }
 
-    // Update 2-5 existing users
+    // And here, it will update 2-5 existing users
     if len(*h.AllUsers) > 0 {
         updateCount := rand.Intn(4) + 2
         for i := 0; i < updateCount; i++ {
@@ -54,6 +54,7 @@ func (h *UserHandler) UsersHandler(w http.ResponseWriter, r *http.Request) {
     json.NewEncoder(w).Encode(responseBatch)
 }
 
+//Handler function to expose the api taking reference from model module
 func (h *UserHandler) generateRandomUser() model.UserProfile {
     return model.UserProfile{
         ID:            uuid.New().String(),
